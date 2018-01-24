@@ -1,2 +1,2 @@
 # 3380Project
-CSC 3380 Machine Learning Project
+CSC 3380 Project - Pictochat Port
