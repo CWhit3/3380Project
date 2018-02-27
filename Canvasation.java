@@ -51,7 +51,7 @@ public class Canvasation {
         //END DRAWING AREA/CANVAS
         
         //START TEXT AREA
-        drawingPane.add(textContainer);
+        //drawingPane.add(textContainer);
         textContainer.setOpaque(false);
         textContainer.setVisible(true);
         textContainer.setEnabled(false);
