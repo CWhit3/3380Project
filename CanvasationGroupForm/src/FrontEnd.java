@@ -1,19 +1,26 @@
 
-import java.awt.Button;
+import canvasationgroupform.Circle;
+import canvasationgroupform.Shape;
+import canvasationgroupform.Square;
+import canvasationgroupform.Text;
+import canvasationgroupform.TextBrushListener;
+import java.awt.AWTException;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.Robot;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Stack;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -25,46 +32,28 @@ import javax.swing.JPanel;
  *
  * @author christian_white
  */
-class TextBrushListener implements MouseListener{
-    Point textCoords = new Point();
-    
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        textCoords.x = e.getX();
-        textCoords.y = e.getY();
-    }
-    
-    @Override
-    public void mousePressed(MouseEvent e) {}
-        
-    @Override
-    public void mouseReleased(MouseEvent e) {}
-
-    @Override
-    public void mouseEntered(MouseEvent e) {}
-
-    @Override
-    public void mouseExited(MouseEvent e) {}
-   
-}
 
 public class FrontEnd extends javax.swing.JFrame {
     /**
      * Creates new form FrontEnd
      */
     
-    //START GUI LOGIC VARIABLES AND REFERENCES
-    boolean canDraw = false;
-    int brushShape = 0;                  //circle = 0, square = 1, text = 2
+//START GUI LOGIC VARIABLES AND REFERENCES
+    
+    Shape s = new Circle();
     Color brushColor = Color.BLACK;
     Stack<Graphics> frames = new Stack();
     TextBrushListener tbl = new TextBrushListener();
     ArrayList<BufferedImage> history = new ArrayList<>();
     BufferedImage submitted = null;
-    //END GUI LOGIC VARIABLES AND REFERENCES
+    
+//END GUI LOGIC VARIABLES AND REFERENCES
+ 
+//START AUTOMATED INITIALIZATION BY NETBEANS GUI BUILDER
     
     public FrontEnd() {
         initComponents();
+        DrawPanel.addMouseListener(tbl);
     }
 
     /**
@@ -82,14 +71,13 @@ public class FrontEnd extends javax.swing.JFrame {
         HistoryContainer = new javax.swing.JPanel();
         ToolPanel = new javax.swing.JPanel();
         BrushSizeSlider = new javax.swing.JSlider();
-        ClearButton = new javax.swing.JButton();
         CircleBrushButton = new javax.swing.JButton();
         SquareBrushButton = new javax.swing.JButton();
-        ColorSelectorButton = new javax.swing.JButton();
         TextButton = new javax.swing.JButton();
-        UndoButton = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
         SubmitButton = new javax.swing.JButton();
+        UndoButton = new javax.swing.JButton();
+        ClearButton = new javax.swing.JButton();
+        ColorSelectorButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Canvasation");
@@ -99,7 +87,8 @@ public class FrontEnd extends javax.swing.JFrame {
         MainPanel.setBackground(new java.awt.Color(0, 0, 0));
 
         DrawPanel.setBackground(new java.awt.Color(255, 255, 255));
-        DrawPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.CROSSHAIR_CURSOR));
+        DrawPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        DrawPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         DrawPanel.setName(""); // NOI18N
         DrawPanel.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
@@ -107,9 +96,6 @@ public class FrontEnd extends javax.swing.JFrame {
             }
         });
         DrawPanel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                DrawPanelMousePressed(evt);
-            }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 DrawPanelMouseReleased(evt);
             }
@@ -122,16 +108,16 @@ public class FrontEnd extends javax.swing.JFrame {
         DrawPanel.setLayout(DrawPanelLayout);
         DrawPanelLayout.setHorizontalGroup(
             DrawPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 595, Short.MAX_VALUE)
         );
         DrawPanelLayout.setVerticalGroup(
             DrawPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 123, Short.MAX_VALUE)
+            .addGap(0, 156, Short.MAX_VALUE)
         );
 
         HistoryScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        HistoryContainer.setBackground(new java.awt.Color(204, 204, 204));
+        HistoryContainer.setBackground(new java.awt.Color(255, 255, 255));
         HistoryContainer.addContainerListener(new java.awt.event.ContainerAdapter() {
             public void componentAdded(java.awt.event.ContainerEvent evt) {
                 HistoryContainerComponentAdded(evt);
@@ -150,13 +136,6 @@ public class FrontEnd extends javax.swing.JFrame {
         BrushSizeSlider.setPaintLabels(true);
         BrushSizeSlider.setValue(10);
 
-        ClearButton.setText("Clear");
-        ClearButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ClearButtonActionPerformed(evt);
-            }
-        });
-
         CircleBrushButton.setText("Circle");
         CircleBrushButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -171,19 +150,10 @@ public class FrontEnd extends javax.swing.JFrame {
             }
         });
 
-        ColorSelectorButton.setText("Color Selector");
-
         TextButton.setText("Text");
         TextButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TextButtonActionPerformed(evt);
-            }
-        });
-
-        UndoButton.setText("Undo");
-        UndoButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UndoButtonActionPerformed(evt);
             }
         });
 
@@ -194,46 +164,27 @@ public class FrontEnd extends javax.swing.JFrame {
             .addComponent(BrushSizeSlider, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(ToolPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(ToolPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(ToolPanelLayout.createSequentialGroup()
-                        .addComponent(CircleBrushButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(SquareBrushButton, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 279, Short.MAX_VALUE)
-                        .addComponent(ColorSelectorButton))
-                    .addGroup(ToolPanelLayout.createSequentialGroup()
-                        .addComponent(TextButton, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addComponent(CircleBrushButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(ToolPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(ClearButton, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
-                    .addComponent(UndoButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(17, 17, 17))
+                .addComponent(SquareBrushButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(TextButton, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         ToolPanelLayout.setVerticalGroup(
             ToolPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ToolPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(ToolPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ClearButton)
                     .addComponent(CircleBrushButton)
                     .addComponent(SquareBrushButton)
-                    .addComponent(ColorSelectorButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(ToolPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(TextButton)
-                    .addComponent(UndoButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(BrushSizeSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(TextButton))
+                .addGap(18, 18, 18)
+                .addComponent(BrushSizeSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23))
         );
 
-        jLabel1.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel1.setFont(new java.awt.Font("Monaco", 0, 12)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Drawing as:");
-
         SubmitButton.setBackground(new java.awt.Color(255, 255, 255));
-        SubmitButton.setFont(new java.awt.Font("Monaco", 0, 12)); // NOI18N
         SubmitButton.setText("Submit");
         SubmitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -241,21 +192,40 @@ public class FrontEnd extends javax.swing.JFrame {
             }
         });
 
+        UndoButton.setText("Undo");
+        UndoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UndoButtonActionPerformed(evt);
+            }
+        });
+
+        ClearButton.setText("Clear");
+        ClearButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ClearButtonActionPerformed(evt);
+            }
+        });
+
+        ColorSelectorButton.setText("Color");
+
         javax.swing.GroupLayout MainPanelLayout = new javax.swing.GroupLayout(MainPanel);
         MainPanel.setLayout(MainPanelLayout);
         MainPanelLayout.setHorizontalGroup(
             MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MainPanelLayout.createSequentialGroup()
+            .addGroup(MainPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(DrawPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(HistoryScrollPane, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ToolPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, MainPanelLayout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(SubmitButton)))
+                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(MainPanelLayout.createSequentialGroup()
+                        .addComponent(DrawPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ColorSelectorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ClearButton, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(UndoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(SubmitButton))
+                        .addGap(0, 12, Short.MAX_VALUE))
+                    .addComponent(ToolPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(HistoryScrollPane))
                 .addContainerGap())
         );
         MainPanelLayout.setVerticalGroup(
@@ -264,15 +234,19 @@ public class FrontEnd extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(HistoryScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ToolPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(ToolPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(DrawPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(MainPanelLayout.createSequentialGroup()
-                        .addGap(13, 13, 13)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(SubmitButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(DrawPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(SubmitButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(UndoButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(ClearButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(ColorSelectorButton)))
                 .addContainerGap())
         );
 
@@ -290,43 +264,36 @@ public class FrontEnd extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void DrawPanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DrawPanelMousePressed
-        canDraw = true;
-    }//GEN-LAST:event_DrawPanelMousePressed
-
+//END AUTOMATED INITIALIZATION BY NETBEANS GUI BUILDER
+    
+//START LISTENERS
     private void DrawPanelMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DrawPanelMouseReleased
-        canDraw = false;
         frames.push(DrawPanel.getGraphics());
         System.out.println("Frames in stack: " + frames.size());
     }//GEN-LAST:event_DrawPanelMouseReleased
 
     private void DrawPanelMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DrawPanelMouseDragged
-        draw(canDraw, evt, brushShape);
+        draw(evt, BrushSizeSlider.getValue());
     }//GEN-LAST:event_DrawPanelMouseDragged
 
     private void ClearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClearButtonActionPerformed
-        System.out.println("//Clear functionality");
+        
     }//GEN-LAST:event_ClearButtonActionPerformed
 
     private void DrawPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DrawPanelMouseClicked
-        canDraw = true;
-        draw(canDraw, evt, brushShape);
-        frames.push(DrawPanel.getGraphics());
-        System.out.println("Frames in stack: " + frames.size());
-        canDraw = false;
+        draw(evt, BrushSizeSlider.getValue());
     }//GEN-LAST:event_DrawPanelMouseClicked
 
     private void CircleBrushButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CircleBrushButtonActionPerformed
-        brushShape = 0;
+        s = new Circle();
     }//GEN-LAST:event_CircleBrushButtonActionPerformed
 
     private void SquareBrushButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SquareBrushButtonActionPerformed
-        brushShape = 1;
+        s = new Square();
     }//GEN-LAST:event_SquareBrushButtonActionPerformed
 
     private void TextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextButtonActionPerformed
-        brushShape = 2;
-        DrawPanel.addMouseListener(tbl);
+        s = new Text("Hello world!");
     }//GEN-LAST:event_TextButtonActionPerformed
 
     private void SubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitButtonActionPerformed
@@ -343,40 +310,52 @@ public class FrontEnd extends javax.swing.JFrame {
     private void UndoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UndoButtonActionPerformed
 
     }//GEN-LAST:event_UndoButtonActionPerformed
-
-    private void draw(boolean canDraw, MouseEvent evt, int s){
-        if(canDraw){
-            int currentSize = BrushSizeSlider.getValue();
-            int offset = currentSize/2;
-            Graphics g = DrawPanel.getGraphics();
-            
-            g.setColor(Color.BLACK);
-            
-            switch (s) {
-                case 0:
-                    g.fillOval(evt.getX() - offset, evt.getY() - offset, currentSize, currentSize);
-                    break;
-                case 1:
-                    g.fillRect(evt.getX() - offset, evt.getY() - offset, currentSize, currentSize);
-                    break;
-                case 2:
-                    g.drawString("Hello world!", tbl.textCoords.x, tbl.textCoords.y);
-                    System.out.println("Text coordinates: " + tbl.textCoords.x + ", " + tbl.textCoords.y);
-                    break;
-                default:
-                    break;
-            }
-        }
+    
+//END LISTENERS
+    
+//START CUSTOM/HELPER METHODS
+    /**
+     * 
+     * @param canDraw: boolean switch 
+     * @param evt
+     * @param s 
+     */
+    private void draw(MouseEvent evt, int size){        
+            DrawPanel.getGraphics().setColor(Color.BLACK);
+            s.draw(DrawPanel.getGraphics(), evt.getPoint(), size);
     }
     
+    /**
+     * Converts the panel into a BufferedImage
+     * to be displayed in the HistoryScrollPane and stored in Firebase
+     * @param panel: panel to be converted to a BufferedImage
+     * @return: BufferedImage of user's drawing to be sent
+     */
     private BufferedImage convertToBI(JPanel panel){
-        int w = panel.getWidth();
-        int h = panel.getHeight();
-        BufferedImage bi = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
-        Graphics g = bi.createGraphics();
-        panel.paint(g);
-        return bi;
+    //Get top-left coordinate of drawPanel w/ respect to screen
+    Point p = panel.getLocationOnScreen();
+    
+    //Get the region with width and height of panel and 
+    // starting coordinates of p.x and p.y
+    Rectangle region = panel.getBounds();
+    region.x = p.x;
+    region.y = p.y;
+
+    //Get screen capture over the area of region
+    BufferedImage bi = null;
+    try {
+        bi = new Robot().createScreenCapture( region );
+    } catch (AWTException ex) {
+        Logger.getLogger(FrontEnd.class.getName()).log(Level.SEVERE, null, ex);
     }
+    
+    return bi;
+    }
+   
+//END CUSTOM/HELPER METHODS
+    
+//START MAIN
+    
     /**
      * @param args the command line arguments
      */
@@ -411,7 +390,9 @@ public class FrontEnd extends javax.swing.JFrame {
             }
         });
     }
-
+    
+//END MAIN
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSlider BrushSizeSlider;
     private javax.swing.JButton CircleBrushButton;
@@ -426,7 +407,6 @@ public class FrontEnd extends javax.swing.JFrame {
     private javax.swing.JButton TextButton;
     private javax.swing.JPanel ToolPanel;
     private javax.swing.JButton UndoButton;
-    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
-
+    
 }
