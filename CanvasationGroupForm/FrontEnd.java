@@ -393,6 +393,7 @@ public class FrontEnd extends javax.swing.JFrame {
         submitted = new JPanelToBufferedImageConverter().convertToBI(DrawPanelContainer);
         history.add(submitted);
         HistoryLog.add(new JLabel(new ImageIcon(submitted)));
+        clear();
     }//GEN-LAST:event_SubmitButtonActionPerformed
 
     private void HistoryLogComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_HistoryLogComponentAdded
@@ -417,13 +418,18 @@ public class FrontEnd extends javax.swing.JFrame {
     }//GEN-LAST:event_textInputActionPerformed
 
     private void ClearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClearButtonActionPerformed
-        frames.clear();
-        DrawPanel.removeAll();
-        DrawPanel.repaint();
+        clear();
     }//GEN-LAST:event_ClearButtonActionPerformed
     
 //END LISTENERS
+//START HELPER METHODS
+    private void clear(){
+        frames.clear();
+        DrawPanel.removeAll();
+        DrawPanel.repaint();
+    }
     
+//END HELPER METHODS
 //START MAIN
     
     /**
