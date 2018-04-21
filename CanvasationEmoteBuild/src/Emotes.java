@@ -42,9 +42,5 @@ public class Emotes {
         mouseX = MouseInfo.getPointerInfo().getLocation().x - DrawPanel.getLocationOnScreen().x - (label.getWidth()/2);
         mouseY = MouseInfo.getPointerInfo().getLocation().y - DrawPanel.getLocationOnScreen().y - (label.getHeight()/2);
         label.setBounds(mouseX, mouseY, 100, 50);
-        BufferedImage cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
-        Cursor blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(
-                cursorImg, new Point(0, 0), "blank cursor");
-        DrawPanel.setCursor(blankCursor);
     }
 }
