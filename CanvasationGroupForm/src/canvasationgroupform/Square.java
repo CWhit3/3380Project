@@ -13,7 +13,7 @@ import java.awt.Point;
  * @author christian_white
  */
 public class Square extends Shape{
-
+    
     @Override
     public void draw(Graphics g, Point drawAt, int size) {
         g.fillRect(drawAt.x - size/2, drawAt.y - size/2, size, size);

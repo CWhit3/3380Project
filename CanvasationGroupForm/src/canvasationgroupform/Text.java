@@ -5,6 +5,7 @@
  */
 package canvasationgroupform;
 
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Point;
 
@@ -12,11 +13,15 @@ import java.awt.Point;
  *
  * @author christian_white
  */
-public class Circle extends Shape{
-
+public class Text extends Shape{
+    private String str;
+    
+    public Text(String s){
+        str = s;
+    }
     @Override
     public void draw(Graphics g, Point drawAt, int size) {
-        g.fillOval(drawAt.x - size/2, drawAt.y - size/2, size, size);
+        g.drawString(str, drawAt.x, drawAt.y);
     }
     
 }

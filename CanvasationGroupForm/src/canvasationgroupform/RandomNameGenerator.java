@@ -18,13 +18,22 @@ public class RandomNameGenerator {
         "Adventurous",
         "Bold",
         "Charismatic",
-        "Daring"
+        "Daring",
+        "Enigmatic",
+        "Foolish",
+        "Gelatinous",
+        "Hairy",
+        "Introverted"
     };
     private String[] animals = {
         "Aardvark", 
         "Beaver",
         "Cockatoo",
-        "Deer"
+        "Deer",
+        "Elephant",
+        "Fox",
+        "Giraffe",
+        "Human",
     };
 
     private boolean[][] used = new boolean[adjectives.length][animals.length];
