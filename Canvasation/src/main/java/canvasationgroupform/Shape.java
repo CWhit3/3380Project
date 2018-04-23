@@ -7,11 +7,13 @@ package canvasationgroupform;
 
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.Color;
 
 /**
  *
  * @author christian_white
  */
 public abstract class Shape {
-    public abstract void draw(Graphics g, Point drawAt, int size);
+
+    public abstract void draw(Graphics g, Point drawAt, int size, Color c);
 }

@@ -7,6 +7,7 @@ package canvasationgroupform;
 
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.Color;
 
 /**
  *
@@ -15,7 +16,8 @@ import java.awt.Point;
 public class Square extends Shape{
 
     @Override
-    public void draw(Graphics g, Point drawAt, int size) {
+    public void draw(Graphics g, Point drawAt, int size, Color c) {
+        g.setColor(c);
         g.fillRect(drawAt.x - size/2, drawAt.y - size/2, size, size);
     }
     

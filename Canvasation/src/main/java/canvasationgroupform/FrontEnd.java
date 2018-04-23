@@ -40,7 +40,6 @@ public class FrontEnd extends javax.swing.JFrame {
 
     Shape s = new Circle();
     Color brushColor = Color.BLACK;
-    Stack<Graphics> frames = new Stack();
     TextBrushListener tbl = new TextBrushListener();
     public static ArrayList<BufferedImage> history = new ArrayList<>();
     BufferedImage submitted = null;
@@ -78,7 +77,6 @@ public class FrontEnd extends javax.swing.JFrame {
         colorSwatch = new javax.swing.JPanel();
         ColorSelectorButton = new javax.swing.JButton();
         SubmitButton = new javax.swing.JButton();
-        UndoButton = new javax.swing.JButton();
         ClearButton = new javax.swing.JButton();
         HistoryContainer = new javax.swing.JPanel();
         HistoryScrollPane = new javax.swing.JScrollPane();
@@ -94,7 +92,7 @@ public class FrontEnd extends javax.swing.JFrame {
         setBackground(new java.awt.Color(0, 0, 0));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        MainPanel.setBackground(new java.awt.Color(102, 102, 102));
+        MainPanel.setBackground(new java.awt.Color(75, 75, 75));
 
         ToolPanel.setBackground(new java.awt.Color(255, 255, 255));
         ToolPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tools", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Shree Devanagari 714", 0, 12))); // NOI18N
@@ -194,15 +192,6 @@ public class FrontEnd extends javax.swing.JFrame {
             }
         });
 
-        UndoButton.setBackground(new java.awt.Color(255, 255, 255));
-        UndoButton.setFont(new java.awt.Font("Avenir", 0, 13)); // NOI18N
-        UndoButton.setText("Undo");
-        UndoButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UndoButtonActionPerformed(evt);
-            }
-        });
-
         ClearButton.setBackground(new java.awt.Color(255, 255, 255));
         ClearButton.setFont(new java.awt.Font("Avenir", 0, 13)); // NOI18N
         ClearButton.setText("Clear");
@@ -250,13 +239,21 @@ public class FrontEnd extends javax.swing.JFrame {
 
         textInput.setFont(new java.awt.Font("Avenir", 0, 13)); // NOI18N
         textInput.setText("[Type text here and press ENTER when done]");
+        textInput.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                textInputMousePressed(evt);
+            }
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                textInputMouseClicked(evt);
+            }
+        });
         textInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textInputActionPerformed(evt);
             }
         });
 
-        DrawPanelContainer.setBackground(new java.awt.Color(153, 0, 204));
+        DrawPanelContainer.setBackground(new java.awt.Color(50, 50 , 50));
         DrawPanelContainer.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         DrawPanelContainer.setForeground(new java.awt.Color(255, 255, 0));
 
@@ -264,6 +261,7 @@ public class FrontEnd extends javax.swing.JFrame {
         DrawPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         DrawPanel.setName(""); // NOI18N
         DrawPanel.setPreferredSize(new java.awt.Dimension(625, 140));
+        DrawPanel.setMaximumSize(new java.awt.Dimension(625, 140));
         DrawPanel.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 DrawPanelMouseDragged(evt);
@@ -277,7 +275,6 @@ public class FrontEnd extends javax.swing.JFrame {
                 DrawPanelMouseClicked(evt);
             }
         });
-
         javax.swing.GroupLayout DrawPanelLayout = new javax.swing.GroupLayout(DrawPanel);
         DrawPanel.setLayout(DrawPanelLayout);
         DrawPanelLayout.setHorizontalGroup(
@@ -325,7 +322,6 @@ public class FrontEnd extends javax.swing.JFrame {
                                         .addGroup(MainPanelLayout.createSequentialGroup()
                                                 .addComponent(ClearButton, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(UndoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(EmotesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -359,7 +355,6 @@ public class FrontEnd extends javax.swing.JFrame {
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                                         .addComponent(ClearButton)
-                                                        .addComponent(UndoButton)
                                                         .addComponent(EmotesButton)
                                                         .addComponent(SubmitButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                                 .addContainerGap())
@@ -383,16 +378,15 @@ public class FrontEnd extends javax.swing.JFrame {
 
     //START LISTENERS
     private void DrawPanelMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DrawPanelMouseReleased
-        frames.push(DrawPanel.getGraphics());
-        System.out.println("Frames in stack: " + frames.size());
+
     }//GEN-LAST:event_DrawPanelMouseReleased
 
     private void DrawPanelMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DrawPanelMouseDragged
-        s.draw(DrawPanel.getGraphics(), evt.getPoint(), BrushSizeSlider.getValue());
+        s.draw(DrawPanel.getGraphics(), evt.getPoint(), BrushSizeSlider.getValue(), brushColor);
     }//GEN-LAST:event_DrawPanelMouseDragged
 
     private void DrawPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DrawPanelMouseClicked
-        s.draw(DrawPanel.getGraphics(), evt.getPoint(), BrushSizeSlider.getValue());
+        s.draw(DrawPanel.getGraphics(), evt.getPoint(), BrushSizeSlider.getValue(), brushColor);
     }//GEN-LAST:event_DrawPanelMouseClicked
 
     private void CircleBrushButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CircleBrushButtonActionPerformed
@@ -438,6 +432,13 @@ public class FrontEnd extends javax.swing.JFrame {
     private void ClearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClearButtonActionPerformed
         clear();
     }//GEN-LAST:event_ClearButtonActionPerformed
+    private void textInputMouseClicked(java.awt.event.MouseEvent evt) {
+        textInput.setText("");
+    }
+
+    private void textInputMousePressed(java.awt.event.MouseEvent evt) {
+        textInput.setText("");
+    }
 
     //START OF EMOTE MENU
     //Creates Emote PopupMenu
@@ -515,7 +516,6 @@ public class FrontEnd extends javax.swing.JFrame {
 
     //START HELPER METHODS
     private void clear(){
-        frames.clear();
         DrawPanel.removeAll();
         DrawPanel.repaint();
     }
@@ -560,8 +560,6 @@ public class FrontEnd extends javax.swing.JFrame {
                 RandomNameGenerator rng = new RandomNameGenerator();
                 username = rng.getNewName();
                 System.out.println("My username is: " + username);
-
-                new FrontEnd().setVisible(true);
 
                 /* Initializing the Firebase connection */
                 try {
@@ -615,6 +613,7 @@ public class FrontEnd extends javax.swing.JFrame {
 
                     }
                 });
+                new FrontEnd().setVisible(true);
             }
         });
     }
@@ -636,7 +635,6 @@ public class FrontEnd extends javax.swing.JFrame {
     private javax.swing.JButton SubmitButton;
     private javax.swing.JButton TextButton;
     private javax.swing.JPanel ToolPanel;
-    private javax.swing.JButton UndoButton;
     private javax.swing.JPanel colorSwatch;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JTextField textInput;

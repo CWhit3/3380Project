@@ -7,6 +7,7 @@ package canvasationgroupform;
 
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.Color;
 
 /**
  *
@@ -19,7 +20,8 @@ public class Text extends Shape{
         str = s;
     }
     @Override
-    public void draw(Graphics g, Point drawAt, int size) {
+    public void draw(Graphics g, Point drawAt, int size, Color c) {
+        g.setColor(c);
         g.drawString(str, drawAt.x, drawAt.y);
     }
     
