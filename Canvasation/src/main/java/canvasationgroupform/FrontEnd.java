@@ -90,6 +90,16 @@ public class FrontEnd extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         EmotesButton = new javax.swing.JButton();
 
+
+        ImageIcon img = null;
+        try {
+            img = new ImageIcon(ImageIO.read(new File("icon.png")));
+            this.setIconImage(img.getImage());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Canvasation - Chatroom: " + chatroom);
         setBackground(new java.awt.Color(0, 0, 0));
@@ -520,6 +530,8 @@ public class FrontEnd extends javax.swing.JFrame {
     public static void setChatroom(){
         try {
             JFrame jf = new JFrame("Chatroom Select");
+            ImageIcon img = new ImageIcon(ImageIO.read(new File("icon.png")));
+            jf.setIconImage(img.getImage());
             JLabel bg = new JLabel(new ImageIcon(ImageIO.read(new File("logo.png"))));
             jf.add(bg);
             bg.setLayout(new GridBagLayout());
@@ -625,6 +637,10 @@ public class FrontEnd extends javax.swing.JFrame {
                 RandomNameGenerator rng = new RandomNameGenerator();
                 username = rng.getNewName();
                 System.out.println("My username is: " + username);
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
                 FrontEnd f = new FrontEnd();
                 f.setVisible(true);
                 f.setResizable(false);
