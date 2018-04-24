@@ -29,7 +29,7 @@ public class Emotes {
         label.setSize(50, 50);
         label.setLocation(DrawPanel.getX()+300, DrawPanel.getY()+10);
         DrawPanel.add(label);
-        DrawPanel.repaint(new Rectangle(DrawPanel.getX() + 300, DrawPanel.getY() + 10, 50, 50));
+        DrawPanel.repaint();
         label.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 labelMouseDragged(evt, label, DrawPanel);
