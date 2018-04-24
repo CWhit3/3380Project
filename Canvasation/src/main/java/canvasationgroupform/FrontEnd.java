@@ -87,7 +87,7 @@ public class FrontEnd extends javax.swing.JFrame {
         textInput = new javax.swing.JTextField();
         DrawPanelContainer = new javax.swing.JPanel();
         DrawPanel = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        UsernameLabel = new javax.swing.JLabel();
         EmotesButton = new javax.swing.JButton();
 
 
@@ -299,9 +299,9 @@ public class FrontEnd extends javax.swing.JFrame {
                         .addGap(0, 144, Short.MAX_VALUE)
         );
 
-        jLabel1.setFont(new java.awt.Font("Shree Devanagari 714", 0, 13)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Created by: " + username);
+        UsernameLabel.setFont(new java.awt.Font("Shree Devanagari 714", 0, 13)); // NOI18N
+        UsernameLabel.setForeground(new java.awt.Color(255, 255, 255));
+        UsernameLabel.setText("Created by: " + username);
 
         javax.swing.GroupLayout DrawPanelContainerLayout = new javax.swing.GroupLayout(DrawPanelContainer);
         DrawPanelContainer.setLayout(DrawPanelContainerLayout);
@@ -312,7 +312,7 @@ public class FrontEnd extends javax.swing.JFrame {
                                 .addGroup(DrawPanelContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(DrawPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 681, Short.MAX_VALUE)
                                         .addGroup(DrawPanelContainerLayout.createSequentialGroup()
-                                                .addComponent(jLabel1)
+                                                .addComponent(UsernameLabel)
                                                 .addGap(0, 0, Short.MAX_VALUE)))
                                 .addContainerGap())
         );
@@ -320,7 +320,7 @@ public class FrontEnd extends javax.swing.JFrame {
                 DrawPanelContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DrawPanelContainerLayout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(UsernameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(DrawPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap())
@@ -636,11 +636,6 @@ public class FrontEnd extends javax.swing.JFrame {
 
                 RandomNameGenerator rng = new RandomNameGenerator();
                 username = rng.getNewName();
-                System.out.println("My username is: " + username);
-<<<<<<< HEAD
-=======
-
->>>>>>> master
                 FrontEnd f = new FrontEnd();
                 f.setVisible(true);
                 f.setResizable(false);
@@ -720,7 +715,7 @@ public class FrontEnd extends javax.swing.JFrame {
     private javax.swing.JButton TextButton;
     private javax.swing.JPanel ToolPanel;
     private javax.swing.JPanel colorSwatch;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel UsernameLabel;
     private javax.swing.JTextField textInput;
     private javax.swing.JButton EmotesButton;
     // End of variables declaration//GEN-END:variables
