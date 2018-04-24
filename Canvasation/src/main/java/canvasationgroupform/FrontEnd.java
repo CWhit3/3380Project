@@ -520,7 +520,7 @@ public class FrontEnd extends javax.swing.JFrame {
     public static void setChatroom(){
         try {
             JFrame jf = new JFrame("Chatroom Select");
-            JLabel bg = new JLabel(new ImageIcon(ImageIO.read(new File("logo.jpg"))));
+            JLabel bg = new JLabel(new ImageIcon(ImageIO.read(new File("logo.png"))));
             jf.add(bg);
             bg.setLayout(new GridBagLayout());
             GridBagConstraints c = new GridBagConstraints();
@@ -531,7 +531,7 @@ public class FrontEnd extends javax.swing.JFrame {
             c.gridx = 0;
             c.gridy = 0;
             c.gridwidth = 2;
-            c.insets = new Insets(200,0,0,0);
+            c.insets = new Insets(170,0,0,0);
             bg.add(label, c);
 
             JTextField jtf = new JTextField(20);
