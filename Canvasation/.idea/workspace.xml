@@ -6,29 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6eb4edf7-52ae-4c8b-b29e-bea0b12be6bc" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/canvasationgroupform/Emotes.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/canvasationgroupform/Emotes.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/canvasationgroupform/FrontEnd$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/canvasationgroupform/FrontEnd$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/canvasationgroupform/FrontEnd$10.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/canvasationgroupform/FrontEnd$10.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/canvasationgroupform/FrontEnd$11.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/canvasationgroupform/FrontEnd$11.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/canvasationgroupform/FrontEnd$12.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/canvasationgroupform/FrontEnd$12.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/canvasationgroupform/FrontEnd$13.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/canvasationgroupform/FrontEnd$13.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/canvasationgroupform/FrontEnd$14$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/canvasationgroupform/FrontEnd$14$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/canvasationgroupform/FrontEnd$14.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/canvasationgroupform/FrontEnd$14.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/canvasationgroupform/FrontEnd$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/canvasationgroupform/FrontEnd$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/canvasationgroupform/FrontEnd$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/canvasationgroupform/FrontEnd$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/canvasationgroupform/FrontEnd$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/canvasationgroupform/FrontEnd$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/canvasationgroupform/FrontEnd$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/canvasationgroupform/FrontEnd$5.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/canvasationgroupform/FrontEnd$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/canvasationgroupform/FrontEnd$6.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/canvasationgroupform/FrontEnd$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/canvasationgroupform/FrontEnd$7.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/canvasationgroupform/FrontEnd$8.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/canvasationgroupform/FrontEnd$8.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/canvasationgroupform/FrontEnd$9.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/canvasationgroupform/FrontEnd$9.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/canvasationgroupform/FrontEnd.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/canvasationgroupform/FrontEnd.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/canvasationgroupform/Emotes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/canvasationgroupform/Emotes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/canvasationgroupform/FrontEnd.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/canvasationgroupform/FrontEnd.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/canvasationgroupform/RandomNameGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/canvasationgroupform/RandomNameGenerator.java" afterDir="false" />
-    </list>
+    <list default="true" id="6eb4edf7-52ae-4c8b-b29e-bea0b12be6bc" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -89,7 +67,7 @@
       <file leaf-file-name="FrontEnd.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/canvasationgroupform/FrontEnd.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="6302">
+            <state relative-caret-position="2709">
               <caret line="665" column="69" lean-forward="true" selection-start-line="665" selection-start-column="69" selection-end-line="665" selection-end-column="69" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -99,16 +77,16 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Emotes.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Emotes.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/canvasationgroupform/Emotes.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="179">
-              <caret line="31" column="96" selection-start-line="31" selection-start-column="96" selection-end-line="31" selection-end-column="96" />
+              <caret line="31" column="26" selection-start-line="31" selection-start-column="26" selection-end-line="31" selection-end-column="26" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RandomNameGenerator.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="RandomNameGenerator.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/canvasationgroupform/RandomNameGenerator.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="335">
@@ -422,8 +400,8 @@
         <option value="$PROJECT_DIR$/src/main/java/canvasationgroupform/Circle.java" />
         <option value="$PROJECT_DIR$/build.gradle" />
         <option value="$PROJECT_DIR$/src/main/java/canvasationgroupform/FrontEnd.java" />
-        <option value="$PROJECT_DIR$/src/main/java/canvasationgroupform/Emotes.java" />
         <option value="$PROJECT_DIR$/src/main/java/canvasationgroupform/RandomNameGenerator.java" />
+        <option value="$PROJECT_DIR$/src/main/java/canvasationgroupform/Emotes.java" />
       </list>
     </option>
   </component>
@@ -648,12 +626,12 @@
       <updated>1523046690929</updated>
       <workItem from="1524519320892" duration="1823000" />
       <workItem from="1524581322012" duration="313000" />
-      <workItem from="1524582113147" duration="1143000" />
+      <workItem from="1524582113147" duration="1462000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3279000" />
+    <option name="totallyTimeSpent" value="3598000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="732" extended-state="6" />
@@ -669,11 +647,11 @@
       <window_info anchor="right" id="Maven Projects" order="3" />
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32826748" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32826748" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.3289183" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
       <window_info anchor="right" id="Database" order="4" />
       <window_info anchor="right" id="Gradle" order="3" weight="0.3296875" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -1056,9 +1034,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/canvasationgroupform/RandomNameGenerator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="335">
+          <caret line="57" column="18" selection-start-line="57" selection-start-column="18" selection-end-line="57" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/canvasationgroupform/FrontEnd.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6302">
+        <state relative-caret-position="2709">
           <caret line="665" column="69" lean-forward="true" selection-start-line="665" selection-start-column="69" selection-end-line="665" selection-end-column="69" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1070,14 +1055,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/canvasationgroupform/Emotes.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="179">
-          <caret line="31" column="96" selection-start-line="31" selection-start-column="96" selection-end-line="31" selection-end-column="96" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/canvasationgroupform/RandomNameGenerator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="335">
-          <caret line="57" column="18" selection-start-line="57" selection-start-column="18" selection-end-line="57" selection-end-column="18" />
+          <caret line="31" column="26" selection-start-line="31" selection-start-column="26" selection-end-line="31" selection-end-column="26" />
         </state>
       </provider>
     </entry>
