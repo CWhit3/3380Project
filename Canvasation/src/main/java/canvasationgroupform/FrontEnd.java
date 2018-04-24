@@ -625,8 +625,9 @@ public class FrontEnd extends javax.swing.JFrame {
                 RandomNameGenerator rng = new RandomNameGenerator();
                 username = rng.getNewName();
                 System.out.println("My username is: " + username);
-
-                new FrontEnd().setVisible(true);
+                FrontEnd f = new FrontEnd();
+                f.setVisible(true);
+                f.setResizable(false);
 
                 /* Initializing the Firebase connection */
                 try {
