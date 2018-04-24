@@ -1,6 +1,9 @@
 package canvasationgroupform;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Stack;
@@ -88,7 +91,7 @@ public class FrontEnd extends javax.swing.JFrame {
         EmotesButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Canvasation");
+        setTitle("Canvasation - Chatroom: " + chatroom);
         setBackground(new java.awt.Color(0, 0, 0));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
@@ -514,6 +517,67 @@ public class FrontEnd extends javax.swing.JFrame {
     }
     //END IMAGE UPLOAD
 
+    public static void setChatroom(){
+        try {
+            JFrame jf = new JFrame("Chatroom Select");
+            JLabel bg = new JLabel(new ImageIcon(ImageIO.read(new File("logo.jpg"))));
+            jf.add(bg);
+            bg.setLayout(new GridBagLayout());
+            GridBagConstraints c = new GridBagConstraints();
+            Font font = new java.awt.Font("Shree Devanagari 714", 0, 12);
+
+            JLabel label = new JLabel("Enter the name of the room you would like to join:");
+            label.setFont(font);
+            c.gridx = 0;
+            c.gridy = 0;
+            c.gridwidth = 2;
+            c.insets = new Insets(200,0,0,0);
+            bg.add(label, c);
+
+            JTextField jtf = new JTextField(20);
+            jtf.setFont(font);
+            c.gridx = 0;
+            c.gridy = 1;
+            c.gridwidth = 1;
+            c.insets = new Insets(0,0,0,0);
+            bg.add(jtf, c);
+
+            JButton connect = new JButton("Connect");
+            connect.setFont(font);
+            c.gridx = 1;
+            c.gridy = 1;
+            connect.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    String name = jtf.getText().toLowerCase().trim();
+                    if(name.equals("")){
+                        JOptionPane.showMessageDialog(jf, "Chatroom name cannot be empty.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                    else if(name.matches(".*[.$\\[\\]#/].*")){
+                        JOptionPane.showMessageDialog(jf, "Chatroom name cannot include the characters $ . [ ] #  or / ", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                    else{
+                        chatroom = name;
+                        jf.dispose();
+                        runProgram();
+                    }
+                }
+            });
+            bg.add(connect, c);
+
+            jf.getRootPane().setDefaultButton(connect);
+            jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            jf.setSize(bg.getSize());
+            jf.pack();
+            jf.setResizable(false);
+            Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+            jf.setLocation(dim.width/2-jf.getSize().width/2, dim.height/2-jf.getSize().height/2);
+            jf.setVisible(true);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     //START HELPER METHODS
     private void clear(){
         DrawPanel.removeAll();
@@ -550,16 +614,19 @@ public class FrontEnd extends javax.swing.JFrame {
         }
         //</editor-fold>
 
+        setChatroom();
+    }
+
+    public static void runProgram(){
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                System.out.print("Please type the name of the chatroom you would like to join: ");
-                Scanner cin = new Scanner(System.in);
-                chatroom = cin.next().toLowerCase();
 
                 RandomNameGenerator rng = new RandomNameGenerator();
                 username = rng.getNewName();
                 System.out.println("My username is: " + username);
+
+                new FrontEnd().setVisible(true);
 
                 /* Initializing the Firebase connection */
                 try {
@@ -577,6 +644,7 @@ public class FrontEnd extends javax.swing.JFrame {
                 }
                 database = FirebaseDatabase.getInstance().getReference();
 
+                /* Handling new submissions to the chatroom */
                 DatabaseReference ref = database.child(chatroom);
                 ref.addChildEventListener(new ChildEventListener() {
                     @Override
@@ -613,7 +681,6 @@ public class FrontEnd extends javax.swing.JFrame {
 
                     }
                 });
-                new FrontEnd().setVisible(true);
             }
         });
     }
