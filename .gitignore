@@ -1,5 +1,5 @@
+*.DS_Store
+*.json
 !*.png
 !*.jpg
 !*.gif
-*.DS_Store
-*.json
